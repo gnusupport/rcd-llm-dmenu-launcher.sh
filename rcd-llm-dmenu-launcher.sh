@@ -21,7 +21,7 @@ declare -A MODELS=(
     ["/home/data1/protected/Programming/llamafile/Phi/quantized/Phi-3.5-mini-instruct-Q3_K_M.gguf"]=999
     ["/home/data1/protected/Programming/llamafile/Qwen/quantized/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf"]=999
     ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-1.5B-Q5_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-3B-Q5_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-3B-Q5_K_M.gguf"]=
     ["/home/data1/protected/Programming/llamafile/AllenAI/quantized/OLMo-2-1124-7B-Instruct-Q3_K_M.gguf"]=20
     ["/home/data1/protected/Programming/llamafile/SmolLM/quantized/SmolLM-1.7B-Instruct-Q5_K_M.gguf"]=999
     ["/home/data1/protected/Programming/llamafile/DeepSeek/quantized/DeepSeek-R1-Distill-Qwen-1.5B-Q5_K_M.gguf"]=999
@@ -29,8 +29,8 @@ declare -A MODELS=(
 
 LLAMA_SERVER="/usr/local/bin/llama-server"
 LOG="$HOME/tmp/llm.log"
-HOST=127.0.0.1  # Default host, can be changed as needed
-HOST=192.168.1.140  # Default host, can be changed as needed
+# HOST=127.0.0.1  # Default host, can be changed as needed
+HOST=192.168.1.140 
 
 # Get the list of full model paths
 model_paths=("${!MODELS[@]}")
@@ -66,7 +66,8 @@ NGL=${MODELS[$MODEL]}
 PID=$(pgrep -x 'llama-server')
 if [ -n "$PID" ]; then
     echo "Killing existing llama-server with PID $PID"
-    kill "$PID"
+    kill -9 "$PID"
+    sleep 1
 fi
 
 # Start the new instance of llama-server
@@ -75,5 +76,5 @@ espeak "$MESSAGE" &
 notify-send "LLM Model" "$MESSAGE" &
 echo "Selected Model: $MODEL"
 echo "NGL: $NGL"
-$LAMA_SERVER -ngl "$NGL" --host "$HOST" -m "$MODEL" > "$LOG" 2>&1 &
+$LLAMA_SERVER -ngl "$NGL" --host "$HOST" -m "$MODEL" > "$LOG" 2>&1 &
 pgrep -a llama-server
