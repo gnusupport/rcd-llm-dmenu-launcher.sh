@@ -12,6 +12,8 @@ The script is designed to manage and launch **Large Language Models (LLMs)** usi
 2. **Kill any running instance** of `llama-server` (if one exists).
 3. **Launch a new instance** of `llama-server` with the selected model and its corresponding number of GPU layers (`NGL`).
 
+[![LLM Launcher Demo](https://img.youtube.com/vi/y3G1fHkLEaI/0.jpg)](https://www.youtube.com/watch?v=y3G1fHkLEaI)
+
 ---
 
 ## **Key Features**:
