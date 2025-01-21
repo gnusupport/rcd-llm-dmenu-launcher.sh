@@ -2,6 +2,8 @@
 
 The rcd-llm-dmenu-launcher.sh script lets you select and launch LLMs via dmenu. It kills any running llama-server, launches the chosen model with its GPU layers (NGL), logs output, and provides audible feedback. A user-friendly LLM manager!
 
+This project is built on top of the amazing [llama.cpp](https://github.com/ggerganov/llama.cpp) project by @ggerganov.
+
 ---
 
 ## **Purpose**:
@@ -160,6 +162,11 @@ plaintext
 ```
 prog "LLM Model" /usr/share/icons/hicolor/scalable/apps/oregano.svg /home/data1/protected/bin/rcd/rcd-llm-dmenu-launcher.sh
 ```
+
+### Credits
+- [llama.cpp](https://github.com/ggerganov/llama.cpp): Core LLM inference library.
+- [dmenu](https://tools.suckless.org/dmenu/): Used for the model selection interface.
+
 
 ---
 
