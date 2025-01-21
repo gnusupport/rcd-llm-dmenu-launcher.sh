@@ -75,5 +75,5 @@ espeak "$MESSAGE" &
 notify-send "LLM Model" "$MESSAGE" &
 echo "Selected Model: $MODEL"
 echo "NGL: $NGL"
-$$LAMA_SERVER -ngl "$NGL" --host "$HOST" -m "$MODEL" > "$LOG" 2>&1 &
+$LAMA_SERVER -ngl "$NGL" --host "$HOST" -m "$MODEL" > "$LOG" 2>&1 &
 pgrep -a llama-server
