@@ -163,7 +163,7 @@ plaintext
 prog "LLM Model" /usr/share/icons/hicolor/scalable/apps/oregano.svg /home/data1/protected/bin/rcd/rcd-llm-dmenu-launcher.sh
 ```
 
-### Credits
+## Credits
 - [llama.cpp](https://github.com/ggerganov/llama.cpp): Core LLM inference library.
 - [dmenu](https://tools.suckless.org/dmenu/): Used for the model selection interface.
 
