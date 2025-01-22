@@ -78,11 +78,32 @@ The script is designed to manage and launch **Large Language Models (LLMs)** usi
 
 ## **Example Usage**:
 
-1. Run the script:
+1. **Valid Model**:
+   ```bash
+   ./rcd-llm-dmenu-launcher.sh QwQ-LCoT-3B-Instruct.Q4_K_M.gguf
+   ```
+   - Output (if model exists):
+     ```
+     Selected Model: /home/data1/protected/Programming/llamafile/QwQ-LCoT-3B-Instruct.Q4_K_M.gguf
+     NGL: 999
+     ```
+
+2. **Invalid Model**:
+   ```bash
+   ./rcd-llm-dmenu-launcher.sh NonExistentModel.gguf
+   ```
+   - Output:
+     ```
+     Error: Model 'NonExistentModel.gguf' not found in the list.
+     ```
+
+3. **No Model Provided**:
    ```bash
    ./rcd-llm-dmenu-launcher.sh
    ```
-2. A `dmenu` prompt appears with a list of LLM filenames:
+   - Displays the `dmenu` interface for model selection.
+
+   A `dmenu` prompt appears with a list of LLM filenames:
    **You are supposed to modify the list of GGUF files yourself within the script!**
    ```
    QwQ-LCoT-3B-Instruct.Q4_K_M.gguf
@@ -97,9 +118,9 @@ The script is designed to manage and launch **Large Language Models (LLMs)** usi
 
 Simply modify full path for your own models.
 
-3. Select a model (e.g., `QwQ-LCoT-3B-Instruct.Q4_K_M.gguf`).
+4. Select a model (e.g., `QwQ-LCoT-3B-Instruct.Q4_K_M.gguf`).
 
-4. The script:
+5. The script:
 
    - Kills any running `llama-server` instance.
    - Launches a new instance with the selected model and its `NGL` value.
