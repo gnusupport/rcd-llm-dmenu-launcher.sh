@@ -18,11 +18,11 @@
 # Define models and their corresponding NGL values
 declare -A MODELS=(
     ["/home/data1/protected/Programming/llamafile/QwQ-LCoT-3B-Instruct.Q4_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/Phi/quantized/Phi-3.5-mini-instruct-Q3_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/llamafile/Phi/quantized/Phi-3.5-mini-instruct-Q3_K_M.gguf"]=30
     ["/home/data1/protected/Programming/llamafile/Qwen/quantized/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf"]=999
     ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-1.5B-Q5_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-3B-Q5_K_M.gguf"]=
-    ["/home/data1/protected/Programming/llamafile/AllenAI/quantized/OLMo-2-1124-7B-Instruct-Q3_K_M.gguf"]=20
+    ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-3B-Q5_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/llamafile/AllenAI/quantized/OLMo-2-1124-7B-Instruct-Q3_K_M.gguf"]=18
     ["/home/data1/protected/Programming/llamafile/SmolLM/quantized/SmolLM-1.7B-Instruct-Q5_K_M.gguf"]=999
     ["/home/data1/protected/Programming/llamafile/DeepSeek/quantized/DeepSeek-R1-Distill-Qwen-1.5B-Q5_K_M.gguf"]=999
 )
@@ -35,8 +35,25 @@ HOST=192.168.1.140
 # Get the list of full model paths
 model_paths=("${!MODELS[@]}")
 
-# Use dmenu to select a model (display only the basename of the file)
-selected_model=$(basename -a "${model_paths[@]}" | dmenu -fn "DejaVu:pixelsize=24" -l 10 -i -b -p "Select a model:" -nf blue -nb cyan)
+# Check if a model name is provided as a command-line argument
+if [ -n "$1" ]; then
+    selected_model="$1"
+    # Verify if the provided model exists in the MODELS array
+    MODEL_FOUND=false
+    for model_path in "${!MODELS[@]}"; do
+        if [[ "$(basename "$model_path")" == "$selected_model" ]]; then
+            MODEL_FOUND=true
+            break
+        fi
+    done
+    if [ "$MODEL_FOUND" = false ]; then
+        echo "Error: Model '$selected_model' not found in the list."
+        exit 1
+    fi
+else
+    # Use dmenu to select a model (display only the basename of the file)
+    selected_model=$(basename -a "${!MODELS[@]}" | dmenu -fn "DejaVu:pixelsize=24" -l 10 -i -b -p "Select a model:" -nf blue -nb cyan)
+fi
 
 # Check if a model was selected
 if [ -z "$selected_model" ]; then
