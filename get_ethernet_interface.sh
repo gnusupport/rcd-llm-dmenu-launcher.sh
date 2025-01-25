@@ -34,5 +34,11 @@ else
     IP_ADDRESS="127.0.0.1"
 fi
 
-# Output the IP address
-echo -n "$IP_ADDRESS"
+# Check if the script is running interactively
+if [ -t 0 ]; then
+    # Interactive mode: output with a newline
+    echo "$IP_ADDRESS"
+else
+    # Non-interactive mode: output without a newline
+    echo -n "$IP_ADDRESS"
+fi
