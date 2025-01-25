@@ -17,20 +17,26 @@
 
 # Define models and their corresponding NGL values
 declare -A MODELS=(
-    ["/home/data1/protected/Programming/llamafile/QwQ-LCoT-3B-Instruct.Q4_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/Phi/quantized/Phi-3.5-mini-instruct-Q3_K_M.gguf"]=30
-    ["/home/data1/protected/Programming/llamafile/Qwen/quantized/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-1.5B-Q5_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/Dolphin/quantized/Dolphin3.0-Qwen2.5-3B-Q5_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/AllenAI/quantized/OLMo-2-1124-7B-Instruct-Q3_K_M.gguf"]=18
-    ["/home/data1/protected/Programming/llamafile/SmolLM/quantized/SmolLM-1.7B-Instruct-Q5_K_M.gguf"]=999
-    ["/home/data1/protected/Programming/llamafile/DeepSeek/quantized/DeepSeek-R1-Distill-Qwen-1.5B-Q5_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/QwQ-LCoT-3B-Instruct.Q4_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/Mistral/quantized/Ministral-3b-instruct-Q4_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/Mistral/quantized/Mistral-7B-v0.3-Q4_K_M.gguf"]=20
+    ["/home/data1/protected/Programming/LLM/Microsoft/quantized/Phi-3.5-mini-instruct-Q3_K_M.gguf"]=30
+    ["/home/data1/protected/Programming/LLM/Qwen/quantized/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/Dolphin/quantized/Dolphin3.0-Qwen2.5-1.5B-Q5_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/Dolphin/quantized/Dolphin3.0-Qwen2.5-3B-Q5_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/AllenAI/quantized/olmo-2-1124-7B-instruct-Q2_K.gguf"]=24
+    ["/home/data1/protected/Programming/LLM/AllenAI/quantized/OLMo-2-1124-7B-Instruct-Q3_K_M.gguf"]=18
+    ["/home/data1/protected/Programming/LLM/AllenAI/quantized/olmo-2-1124-7B-instruct-Q3_K_S.gguf"]=21
+    ["/home/data1/protected/Programming/LLM/SmolLM/quantized/SmolLM-1.7B-Instruct-Q5_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/DeepSeek/quantized/DeepSeek-R1-Distill-Qwen-1.5B-Q5_K_M.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/Qwen/quantized/DeepSeek-R1-Distill-Qwen-7B-Q3_K_S.gguf"]=999
+    ["/home/data1/protected/Programming/LLM/Qwen/quantized/DeepSeek-R1-Distill-Qwen-7B-Q3_K_M.gguf"]=25
 )
 
 LLAMA_SERVER="/usr/local/bin/llama-server"
 LOG="$HOME/tmp/llm.log"
-# HOST=127.0.0.1  # Default host, can be changed as needed
-HOST=192.168.1.140 
+
+HOST=$(/home/data1/protected/bin/rcd/get_ethernet_interface.sh)
 
 # Get the list of full model paths
 model_paths=("${!MODELS[@]}")
@@ -95,3 +101,5 @@ echo "Selected Model: $MODEL"
 echo "NGL: $NGL"
 $LLAMA_SERVER -ngl "$NGL" --host "$HOST" -m "$MODEL" > "$LOG" 2>&1 &
 pgrep -a llama-server
+sleep 3
+firefox-esr "http://$HOST:8080"
